@@ -1,3 +1,23 @@
+from abc import ABC, abstractmethod
+
+#  Interfaz para enviar mensajes.
+class INenviar_mensaje(ABC):
+    @abstractmethod
+    def enviar_mensaje(self, destinatario, asunto, cuerpo):
+        pass
+
+#  Interfaz para recibir mensajes.
+class INrecibir_mensajes(ABC):
+    @abstractmethod
+    def recibir_mensaje(self, mensaje):
+        pass
+
+#  Interfaz para listar mensajes.
+class INlistar_mensajes(ABC):
+    @abstractmethod
+    def listar_mensajes(self, carpeta):
+        pass
+
 class Usuario:
     def __init__(self, nombre, email, password):
         self.__nombre = nombre      #usamos con doble __ para que privado
