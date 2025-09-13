@@ -18,7 +18,7 @@ class INlistar_mensajes(ABC):
     def listar_mensajes(self, carpeta):
         pass
 
-class Usuario:
+class Usuario(INenviar_mensaje, INrecibir_mensajes, INlistar_mensajes):
     def __init__(self, nombre, email, password):
         self.__nombre = nombre      #usamos con doble __ para que privado
         self.__email = email
@@ -103,7 +103,7 @@ class Carpeta:
         self.__mensajes = mensajes
 
 # Clase ServidorCorreo
-class ServidorCorreo:
+class ServidorCorreo(INenviar_mensaje, INrecibir_mensajes):
     def __init__(self, nombre):
         self.__usuarios = []  # lista de objetos Usuario
         self.__nombre = nombre
