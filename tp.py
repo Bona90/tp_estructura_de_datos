@@ -67,9 +67,6 @@ class Mensaje:
     def get_remitente(self):
         return self.__remitente
 
-    def set_remitente(self, remitente):
-        self.__remitente = remitente
-
     def get_destinatario(self):
         return self.__destinatario
 
@@ -84,10 +81,6 @@ class Mensaje:
 
     def get_cuerpo(self):
         return self.__cuerpo
-
-    def set_cuerpo(self, cuerpo):
-        self.__cuerpo = cuerpo
-
 
 # Clase Carpeta
 class Carpeta:
@@ -105,19 +98,21 @@ class Carpeta:
     def get_mensajes(self):
         return self.__mensajes
 
-    def set_mensajes(self, mensajes):
-        self.__mensajes = mensajes
 
 # Clase ServidorCorreo
 class ServidorCorreo(IEnviarMensaje, IRecibirMensajes):
     def __init__(self, nombre):
-        self.__usuarios = []  # lista de objetos Usuario
         self.__nombre = nombre
+        self.__usuarios = []  # lista de objetos Usuario
 
     # Getters y Setters
+    def get_nombre(self):
+        return self.__nombre
+    
+    def set_nombre(self, nuevo_nombre):
+        self.__nombre = nuevo_nombre
+
     def get_usuarios(self):
         return self.__usuarios
 
-    def set_usuarios(self, usuarios):
-        self.__usuarios = usuarios
 
