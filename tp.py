@@ -15,10 +15,10 @@ class IRecibirMensajes(ABC):
 #  Interfaz para listar mensajes.
 class IListarMensajes(ABC):
     @abstractmethod
-    def listar_mensajes(self, carpeta):
+    def listar_mensajes(self):
         pass
 
-class Usuario(IEnviarMensaje, IRecibirMensajes, IListarMensajes):
+class Usuario(IEnviarMensaje, IRecibirMensajes):
     def __init__(self, nombre, email, password):
         self.__nombre = nombre      #  usamos encapsulamiento para proteger los datos.
         self.__email = email
@@ -82,8 +82,12 @@ class Mensaje:
     def get_cuerpo(self):
         return self.__cuerpo
 
+# Métodos de Mensaje.
+    def __str__(mensaje):
+        pass
+
 # Clase Carpeta
-class Carpeta:
+class Carpeta(IListarMensajes):
     def __init__(self, nombre):
         self.__nombre = nombre
         self.__mensajes = []  # lista de objetos Mensaje
@@ -98,6 +102,15 @@ class Carpeta:
     def get_mensajes(self):
         return self.__mensajes
 
+#Métodos de clase Carpeta.
+    def agregar_mensaje(self, mensaje):
+        pass
+
+    def eliminar_mensaje(self, mensaje):
+        pass
+
+    def listar_mensajes(self, carpeta):
+        pass
 
 # Clase ServidorCorreo
 class ServidorCorreo(IEnviarMensaje, IRecibirMensajes):
@@ -115,4 +128,16 @@ class ServidorCorreo(IEnviarMensaje, IRecibirMensajes):
     def get_usuarios(self):
         return self.__usuarios
 
+#  Métodos de la clase Servidor Correo
+    def registrar_usuario(self, usuario):
+        pass
+
+    def login(self, email, password):
+        pass
+
+    def enviar_mensaje(self, remitente, destinatario, asunto, cuerpo):
+        pass
+
+    def recibir_mensaje(self, mensaje, destinatario):
+        pass
 
