@@ -1,32 +1,33 @@
 from abc import ABC, abstractmethod
 
-#  Interfaz para enviar mensajes.
+#  Interfaz IEnviarMensaje: define la capacidad de una clase para enviar mensaje.
 class IEnviarMensaje(ABC):
     @abstractmethod
     def enviar_mensaje(self, destinatario, asunto, cuerpo):
         pass
 
-#  Interfaz para recibir mensajes.
+#  Interfaz IRecibirMensajes: define la capacidad para recibir mensajes.
 class IRecibirMensajes(ABC):
     @abstractmethod
     def recibir_mensaje(self, mensaje):
         pass
 
-#  Interfaz para listar mensajes.
+#  Interfaz IListarMensajes: define la capacidad de una carpeta de listar mensajes.
 class IListarMensajes(ABC):
     @abstractmethod
     def listar_mensajes(self):
         pass
 
+#  Clase Ususario: representa a un usuario del sistema de correo.
 class Usuario(IEnviarMensaje, IRecibirMensajes):
     def __init__(self, nombre, email, password):
-        self.__nombre = nombre      #  usamos encapsulamiento para proteger los datos.
+        self.__nombre = nombre      #  se usa encapsulamiento (__atributo) para proteger los datos sensibles.
         self.__email = email
         self.__password = password
-        self.__carpetas = []
+        self.__carpetas = []   #  lista de carpetas.
 
 # Getters y Setters
-    def get_nombre(self):       #  usamos getters y setters en los atributos que consideramos necesarios.
+    def get_nombre(self):       #  se usan getters y setters en los atributos para acceder y modificar de forma controlada.
         return self.__nombre
     
     def set_nombre(self, nuevo_nombre):
@@ -45,17 +46,17 @@ class Usuario(IEnviarMensaje, IRecibirMensajes):
         return self.__carpetas
     
 #Metodos de Usuario
-    def enviar_mensaje(self, destinatario, asunto, cuerpo):
+    def enviar_mensaje(self, remitente, destinatario, asunto, cuerpo):  #  envía un mensaje usando el servidor de correo.
         pass
     def recibir_mensaje(self, mensaje):
         pass
     def listar_mensajes(self, carpeta):
         pass
-    def mover_mensaje(self, mensaje, carpeta1, carpeta2):
+    def mover_mensaje(self, mensaje, carpeta1, carpeta2):    #  mueve un mensaje de una carpeta a otra.
         pass
 
 
-# Clase Mensaje
+# Clase Mensaje: representa una mensaje de correo.
 class Mensaje:
     def __init__(self, remitente, destinatario, asunto, cuerpo):
         self.__remitente = remitente
@@ -83,10 +84,10 @@ class Mensaje:
         return self.__cuerpo
 
 # Métodos de Mensaje.
-    def __str__(mensaje):
+    def __str__(mensaje):    #  devuelve una representación legible del mensaje.
         pass
 
-# Clase Carpeta
+# Clase Carpeta: contiene mensajes de un usuario.
 class Carpeta(IListarMensajes):
     def __init__(self, nombre):
         self.__nombre = nombre
@@ -109,10 +110,10 @@ class Carpeta(IListarMensajes):
     def eliminar_mensaje(self, mensaje):
         pass
 
-    def listar_mensajes(self, carpeta):
+    def listar_mensajes(self, carpeta):    #  devuelve una lista de los mensajes contenidos en una carpeta.
         pass
 
-# Clase ServidorCorreo
+# Clase ServidorCorreo: gestiona usuarios y permite en envío y recepción de mensajes.
 class ServidorCorreo(IEnviarMensaje, IRecibirMensajes):
     def __init__(self, nombre):
         self.__nombre = nombre
@@ -129,15 +130,15 @@ class ServidorCorreo(IEnviarMensaje, IRecibirMensajes):
         return self.__usuarios
 
 #  Métodos de la clase Servidor Correo
-    def registrar_usuario(self, usuario):
+    def registrar_usuario(self, usuario):    #  registra un usuario en el servidor y verifica que no exista previamente.
         pass
 
-    def login(self, email, password):
+    def login(self, email, password):    #  permite iniciar sesión de un usuario con email y password.
         pass
 
-    def enviar_mensaje(self, remitente, destinatario, asunto, cuerpo):
+    def enviar_mensaje(self, remitente, destinatario, asunto, cuerpo):    #  permite enviar un mensaje mediante el servidor.
         pass
 
-    def recibir_mensaje(self, mensaje, destinatario):
+    def recibir_mensaje(self, mensaje, destinatario):    #  entrega un mensaje a un destinatario particular.
         pass
 
