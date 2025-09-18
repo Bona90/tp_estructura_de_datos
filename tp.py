@@ -142,3 +142,5 @@ class ServidorCorreo(IEnviarMensaje, IRecibirMensajes):
     def recibir_mensaje(self, mensaje, destinatario):    #  entrega un mensaje a un destinatario particular.
         pass
 
+    def buscar_usuario(self, email):    #  permite buscar un usuario en el servidor.
+        pass
