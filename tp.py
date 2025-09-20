@@ -114,10 +114,10 @@ class Carpeta(IListarMensajes):
         return self.__mensajes
 
     # Métodos de clase Carpeta
-    def agregar_mensaje(self, mensaje):
+    def agregar_mensaje(self, mensaje): #Agrega un mensaje a la lista de la carpeta
         self.__mensajes.append(mensaje)
 
-    def eliminar_mensaje(self, mensaje):
+    def eliminar_mensaje(self, mensaje):    #Borra un mensaje de la carpeta (si está presente)
         if mensaje in self.__mensajes:
             self.__mensajes.remove(mensaje)
 
