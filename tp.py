@@ -84,9 +84,9 @@ class Mensaje:
         return self.__cuerpo
 
 # Métodos de Mensaje.
-    def __str__(mensaje):    #  devuelve una representación legible del mensaje.
+    def __str__(self):    #  devuelve una representación legible del mensaje.
         pass
-
+    
 # Clase Carpeta: contiene mensajes de un usuario.
 class Carpeta(IListarMensajes):
     def __init__(self, nombre):
@@ -110,7 +110,7 @@ class Carpeta(IListarMensajes):
     def eliminar_mensaje(self, mensaje):
         pass
 
-    def listar_mensajes(self, carpeta):    #  devuelve una lista de los mensajes contenidos en una carpeta.
+    def listar_mensajes(self):    #  devuelve una lista de los mensajes contenidos en una carpeta.
         pass
 
 # Clase ServidorCorreo: gestiona usuarios y permite en envío y recepción de mensajes.
