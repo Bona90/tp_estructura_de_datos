@@ -1,8 +1,8 @@
 #  Proyecto Sistema de Correo
 
   INTEGRANTES DEL GRUPO: 
-  Bonacorsi, Gonzalo
-  Fermini, Mara
+  Bonacorsi, Gonzalo  
+  Fermini, Mara  
   Santa María, Alan
 
 Este proyecto se desarrolla en el marco de trabajo de la materia Estructura de Datos, correspondiente a la carrera Tecnicatura Universitaria en Programación de la Universidad Nacional Almirante Brown.
