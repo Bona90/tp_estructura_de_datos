@@ -135,7 +135,7 @@ class ServidorCorreo(IEnviarMensaje, IRecibirMensajes):
 
     def login(self, email, password):    #  permite iniciar sesión de un usuario con email y password.
         pass
-
+    
     def enviar_mensaje(self, remitente, destinatario, asunto, cuerpo):    #  permite enviar un mensaje mediante el servidor.
         pass
 
