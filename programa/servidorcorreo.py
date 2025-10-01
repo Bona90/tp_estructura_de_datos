@@ -4,7 +4,7 @@ from mensaje import Mensaje
 # Clase ServidorCorreo: gestiona usuarios y permite el envío y recepción de mensajes.
 class ServidorCorreo(IEnviarMensaje, IRecibirMensajes):
     def __init__(self, nombre):
-        self.__nombre = nombre
+        self.set_nombre(nombre)
         self.__usuarios = []
 
     # Getters y Setters
