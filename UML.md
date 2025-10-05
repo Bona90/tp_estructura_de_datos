@@ -73,7 +73,7 @@ class Carpeta {
     +busqueda_por_asunto(asunto)
 }
 
-Carpeta "1" o-- "0..*" Carpeta : subcarpetas
+Carpeta "1" o-- "0..*" Carpeta
 
 class ServidorCorreo {
     -__nombre
