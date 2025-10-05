@@ -54,12 +54,23 @@ class Mensaje {
 class Carpeta {
     -__nombre
     -__mensajes
+    -__subcarpetas : list<Carpeta>
+    -__padre : Carpeta (0..1)
     +get_nombre()
     +set_nombre(nombre)
     +get_mensajes()
+    +get_subcarpetas()
+    +get_padre()
+    +set_padre(padre)
     +agregar_mensaje(mensaje)
     +eliminar_mensaje(mensaje)
     +listar_mensajes()
+    +mover_mensaje(mensaje, carpeta_destino)
+    +crear_subcarpeta(nombre)
+    +agregar_subcarpeta(carpeta)
+    +eliminar_subcarpeta(nombre)
+    +busqueda_por_remitente(remitente)
+    +busqueda_por_asunto(asunto)
 }
 
 class ServidorCorreo {
