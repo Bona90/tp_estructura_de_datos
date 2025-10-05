@@ -55,7 +55,7 @@ class Carpeta {
     -__nombre
     -__mensajes
     -__subcarpetas : list<Carpeta>
-    -__padre : Carpeta (0..1)
+    -__padre : Carpeta
     +get_nombre()
     +set_nombre(nombre)
     +get_mensajes()
@@ -72,6 +72,8 @@ class Carpeta {
     +busqueda_por_remitente(remitente)
     +busqueda_por_asunto(asunto)
 }
+
+Carpeta "1" o-- "0..*" Carpeta : subcarpetas
 
 class ServidorCorreo {
     -__nombre
