@@ -1,5 +1,5 @@
 from programa.interfaces import IEnviarMensaje, IRecibirMensajes
-from mensaje import Mensaje
+from programa.mensaje import Mensaje
 
 # Clase ServidorCorreo: gestiona usuarios y permite el envío y recepción de mensajes.
 class ServidorCorreo(IEnviarMensaje, IRecibirMensajes):

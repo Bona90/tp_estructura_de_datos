@@ -1,6 +1,6 @@
 from programa.usuario import Usuario
-from mensaje import Mensaje
-from carpeta import Carpeta
+from programa.mensaje import Mensaje
+from programa.carpeta import Carpeta
 from programa.servidorcorreo import ServidorCorreo
 
 def main ():

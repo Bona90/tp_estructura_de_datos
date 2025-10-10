@@ -1,5 +1,5 @@
 from programa.interfaces import IListarMensajes
-from mensaje import Mensaje
+from programa.mensaje import Mensaje
 
 # Clase Carpeta: contiene mensajes de un usuario.
 class Carpeta(IListarMensajes):
