@@ -111,4 +111,4 @@ class Carpeta(IListarMensajes):
         if len(encontrados) == 0:
             return []
         return encontrados   
-        #   Complejidad: O(m+n) siendo m la cantidad de mensajes y n las subcarpetas 
+        #   Complejidad: O(m+n) siendo m la cantidad de mensajes y n las subcarpetas
