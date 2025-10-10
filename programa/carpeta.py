@@ -68,7 +68,7 @@ class Carpeta(IListarMensajes):
         nueva.set_padre(self)    #  Asigna como padre la carpeta actual
         self.__subcarpetas.append(nueva)
         return nueva
-        #   Complejidad: O(k) k = numero de subcarpetas.
+        #   Complejidad: O(n) n = numero de subcarpetas.
     
     def agregar_subcarpeta(self, carpeta):    #  Se agrega una subcarpeta existente.
         if not isinstance(carpeta, Carpeta):    #  Se verifica que sea instancia de Carpeta.
@@ -81,7 +81,7 @@ class Carpeta(IListarMensajes):
             padre_anterior.__subcarpetas.remove(carpeta)  #  Si existe se remueve el padre anterior.
         carpeta.set_padre(self)    #  Se asigna el nuevo padre.
         self.__subcarpetas.append(carpeta)   #  Se agrega la subcarpeta.
-        #   Complejidad: O(k) k = numero de subcarpetas.
+        #   Complejidad: O(n) n = numero de subcarpetas.
         
     def eliminar_subcarpeta(self, nombre):
         for subcarpeta in self.__subcarpetas:
@@ -90,7 +90,7 @@ class Carpeta(IListarMensajes):
                 subcarpeta.set_padre(None)    #  Cambia el padre de la subcarpeta.
                 return
         raise ValueError("No existe una subcarpeta con ese nombre en este nivel.")
-        #   Complejidad: O(k) k = numero de subcarpetas.
+        #   Complejidad: O(n) n = numero de subcarpetas.
     
     # Busqueda recursiva.
     #  Busqueda de mensajes por remitente en todo el árbol.
@@ -101,7 +101,7 @@ class Carpeta(IListarMensajes):
         if len(encontrados) == 0:
             return []
         return encontrados
-        #   Complejidad: O(m) m = numero de mensajes en la carpeta y todas las subcarpetas.
+        #   Complejidad: O(m+n) siendo m la cantidad de mensajes y n las subcarpetas
     
     #   Busqueda de mensajes por asutno en todo el árbol.
     def busqueda_por_asunto(self, asunto):
@@ -111,4 +111,4 @@ class Carpeta(IListarMensajes):
         if len(encontrados) == 0:
             return []
         return encontrados   
-        #   Complejidad: O(m) m = numero de mensajes en la carpeta y todas las subcarpetas. 
+        #   Complejidad: O(m+n) siendo m la cantidad de mensajes y n las subcarpetas 
