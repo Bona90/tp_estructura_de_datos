@@ -1,0 +1,3 @@
+# Este archivo es para ignorar carpetas de compilación y cache y no se suban a GitHub
+__pycache__/
+*.pyc
