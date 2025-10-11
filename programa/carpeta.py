@@ -42,13 +42,13 @@ class Carpeta(IListarMensajes):
             self.__mensajes.remove(mensaje)
         else:
             raise ValueError("El mensaje no está en la carpeta.")
-        #   Complejidad: O(n) n = numero de mensajes en la carpeta.
+        #   Complejidad: O(m) m = numero de mensajes en la carpeta.
         
     def listar_mensajes(self):
         if not self.__mensajes:
             return "La carpeta está vacía."
         return [str(m) for m in self.__mensajes]    #  Devuelve los mensajes de la carpeta en formato texto.
-        #   Complejidad: O(n) n = numero de mensajes en la carpeta.
+        #   Complejidad: O(m) m = numero de mensajes en la carpeta.
     
     def mover_mensaje(self, mensaje, carpeta_destino):
         if not isinstance(carpeta_destino, Carpeta):    #   Si la carpeta de destino no es de tipo carpeta arroja un error.
@@ -57,7 +57,7 @@ class Carpeta(IListarMensajes):
             raise ValueError("El mensaje no esta en esta carpeta.")
         self.__mensajes.remove(mensaje)    #   Remueve el mensaje de la carpeta actual
         carpeta_destino.agregar_mensaje(mensaje)   #   Agrega el mensaje a la carpeta de destino.
-        #   Complejidad: O(n) + O(1) n = numero de mensajes en la carpeta. O(n) corresponde a eliminar mensaje, O(1) a agregar en la carpeta.
+        #   Complejidad: O(m) + O(1) m = numero de mensajes en la carpeta. O(n) corresponde a eliminar mensaje, O(1) a agregar en la carpeta.
     
     # Gestión de carpetas.
     def crear_subcarpeta(self, nombre):   #  Se crea una subcarpeta.
@@ -68,7 +68,7 @@ class Carpeta(IListarMensajes):
         nueva.set_padre(self)    #  Asigna como padre la carpeta actual
         self.__subcarpetas.append(nueva)
         return nueva
-        #   Complejidad: O(k) k = numero de subcarpetas.
+        #   Complejidad: O(n) n = numero de subcarpetas.
     
     def agregar_subcarpeta(self, carpeta):    #  Se agrega una subcarpeta existente.
         if not isinstance(carpeta, Carpeta):    #  Se verifica que sea instancia de Carpeta.
@@ -81,7 +81,7 @@ class Carpeta(IListarMensajes):
             padre_anterior.__subcarpetas.remove(carpeta)  #  Si existe se remueve el padre anterior.
         carpeta.set_padre(self)    #  Se asigna el nuevo padre.
         self.__subcarpetas.append(carpeta)   #  Se agrega la subcarpeta.
-        #   Complejidad: O(k) k = numero de subcarpetas.
+        #   Complejidad: O(n) n = numero de subcarpetas.
         
     def eliminar_subcarpeta(self, nombre):
         for subcarpeta in self.__subcarpetas:
@@ -90,7 +90,7 @@ class Carpeta(IListarMensajes):
                 subcarpeta.set_padre(None)    #  Cambia el padre de la subcarpeta.
                 return
         raise ValueError("No existe una subcarpeta con ese nombre en este nivel.")
-        #   Complejidad: O(k) k = numero de subcarpetas.
+        #   Complejidad: O(n) n = numero de subcarpetas.
     
     # Busqueda recursiva.
     #  Busqueda de mensajes por remitente en todo el árbol.
@@ -101,7 +101,7 @@ class Carpeta(IListarMensajes):
         if len(encontrados) == 0:
             return []
         return encontrados
-        #   Complejidad: O(m) m = numero de mensajes en la carpeta y todas las subcarpetas.
+        #   Complejidad: O(m+n) m = numero de mensajes en la carpeta y n= numero de subcarpetas.
     
     #   Busqueda de mensajes por asutno en todo el árbol.
     def busqueda_por_asunto(self, asunto):
@@ -111,4 +111,4 @@ class Carpeta(IListarMensajes):
         if len(encontrados) == 0:
             return []
         return encontrados   
-        #   Complejidad: O(m) m = numero de mensajes en la carpeta y todas las subcarpetas. 
+        #   Complejidad: O(m+n) m = numero de mensajes en la carpeta y n= numero de subcarpetas. 
