@@ -1,6 +1,11 @@
 from programa.interfaces import IEnviarMensaje, IRecibirMensajes
+<<<<<<< HEAD
 from mensaje import Mensaje
 from carpeta import Carpeta
+=======
+from programa.mensaje import Mensaje
+from programa.carpeta import Carpeta
+>>>>>>> master
 
 #  Clase Usuario: representa a un usuario del sistema de correo.
 class Usuario(IEnviarMensaje, IRecibirMensajes):
