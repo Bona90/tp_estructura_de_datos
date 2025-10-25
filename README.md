@@ -52,6 +52,7 @@ El análisis de eficiencia se centra en las operaciones más comunes dentro de l
 **busqueda_por_asunto()**: busqueda recursiva de mensajes según el asunto en todo el árbol, su complejidad es O(m+n), siendo m el total de mensajes y n el total de subcarpetas. El método debe revisar todos los nodos y todos los mensajes del árbol.
 
 **Manejo de casos límite y excepciones.**
+
 El sistema de correo utiliza excepciones para garantizar la coherencia de los objetos y el manejo de entradas inválidas, mediante el uso de ValueError y TypeError, con el fin de mantener la integridad de los datos.
 Dentro de la clase Carpeta podemos encontrar:
 **TypeError**: el programa arroja errores de este tipo al intentar agregar un mensaje a una carpeta, si el mensaje no es instancia de la calse Mensaje; al mover un mensaje entre carpetas o crear una subcarpeta, si la carpeta buscada o que se intenta crear no es instancia de la clase Carpeta.
