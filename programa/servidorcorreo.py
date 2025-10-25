@@ -26,7 +26,7 @@ class ServidorCorreo(IEnviarMensaje, IRecibirMensajes):
 
     def login(self, email, password):   #El login es basicamente una verificacion de un usuario con una contraseña
         usuario = self.buscar_usuario(email)
-        if usuario and usuario._Usuario__password == password:
+        if usuario and usuario.validar_password(password):   #    se utiliza el método público de usuario para validar la contraseña.
             return usuario
         return None
 

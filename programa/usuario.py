@@ -49,12 +49,27 @@ class Usuario(IEnviarMensaje, IRecibirMensajes):
     def listar_mensajes(self, carpeta):
         return carpeta.listar_mensajes()    #Pide que devuelva los mensajes que contiene la carpeta.
 
-    def mover_mensaje(self, mensaje, carpeta1, carpeta2):
-        if not isinstance(carpeta1, Carpeta) or not isinstance(carpeta2, Carpeta):
-            raise TypeError("Las carpetas deben ser objetos carpeta.")
-        if mensaje in carpeta1.get_mensajes():  #Aca podemos mover mensajes entre carpetas, para por ejemplo mandar un mensaje a una carpeta "Spam"
-            carpeta1.eliminar_mensaje(mensaje)
-            carpeta2.agregar_mensaje(mensaje)
-            return "Mensaje movido desde " + carpeta1.get_nombre() + " a" + carpeta2.get_nombre() + "."
-        else:
-            raise ValueError("El mensaje no se encuentra en la carpeta.")
+    def mover_mensaje(self, mensaje, nombre_carpeta_destino):
+        if not isinstance(nombre_carpeta_destino, str):
+            raise TypeError("El nombre de la carpeta debe ser una cadena de caracteres.")
+        carpeta_origen = None    
+        for carpeta_raiz in self.__carpetas:   #   iniciamos la busqueda del mensaje en la carpeta raíz.
+            if mensaje in carpeta_raiz.get_mensajes():   #   se busca el mensaje en el árbol.
+                carpeta_origen = carpeta_raiz
+                break
+        if not carpeta_origen:     #   El mensaje no está en ninguna carpeta.
+            raise ValueError("El mensaje no se encuentra en ninguna carpeta del usuario.")
+        carpeta_destino = None
+        for carpeta_raiz in self.__carpetas:   #   localizar la carpeta de destino buscando de forma recursiva.
+            destino = carpeta_raiz.busqueda_recursiva_carpeta(nombre_carpeta_destino)
+            if destino:
+                carpeta_destino = destino
+                break
+        if not carpeta_destino:
+            raise ValueError("La carpeta de destino " + nombre_carpeta_destino + " no existe")
+        carpeta_origen.mover_mensaje(mensaje, carpeta_destino)    #   se mueve el mensaje de la carpeta de origen a la carpeta de destino.
+        return "Mensaje movido desde " + carpeta_origen.get_nombre() + " a " + carpeta_destino.get_nombre() + "."
+        
+    def validar_password(self, password):
+        return self.__password == password    #    verificación de la contraseña sin exponer el atributo provado.
+       

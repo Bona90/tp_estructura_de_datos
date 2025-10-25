@@ -37,7 +37,7 @@ Se espera que el programa permita:
 
 **Árbol General y Lógica Recursiva**
 
-La clase Carpeta fue implementada como un árbol general, en el cual cada nodo puede tener una antidad infinita de hijos, en este caso una estructura jerárquica que puede tener subcarpetas ilimitadas.
+La clase Carpeta fue implementada como un árbol general, en el cual cada nodo puede tener una cantidad infinita de hijos, en este caso una estructura jerárquica que puede tener subcarpetas ilimitadas.
 La recursividad se aplica para recorrer todo el árbol de carpetas y subcarpetas, presente en la busqueda recursiva de mensajes, utilizando los métodos de busqueda por remitente o por asunto, permitiendo recorrer los mensajes en el nodo actual de la clase carpeta y cada una de sus subcarpetas.
 Los métodos que permiten crear, eliminar o agregar una subcarpeta manejan las relaciones padre-hijo para mantener la integridad del árbol.
 
@@ -60,6 +60,7 @@ Dentro de la clase Carpeta podemos encontrar:
 **Operaciones recursivas**: luego de la busqueda recursiva, por asunto o remitente, de todos los nodos, si no se encuentra el mensaje buscado se devuelve una lista vacía, con el fin de evitar errores de ejecución.
 
 **Gráfico UML de Clases**
+
 ```mermaid
 
 classDiagram
@@ -96,7 +97,8 @@ class Usuario {
     +enviar_mensaje(remitente, destinatario, asunto, cuerpo)
     +recibir_mensaje(mensaje)
     +listar_mensajes(carpeta)
-    +mover_mensaje(mensaje, carpeta1, carpeta2)
+    +mover_mensaje(mensaje, nombre_carpeta_destino)
+    +validar_password(password)
 }
 
 class Mensaje {
@@ -133,6 +135,7 @@ class Carpeta {
     +eliminar_subcarpeta(nombre)
     +busqueda_por_remitente(remitente)
     +busqueda_por_asunto(asunto)
+    +busqueda_recursiva_carpeta(nombre_carpeta)
 }
 
 Carpeta "1" o-- "0..*" Carpeta

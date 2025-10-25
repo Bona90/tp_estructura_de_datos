@@ -103,7 +103,7 @@ class Carpeta(IListarMensajes):
         return encontrados
         #   Complejidad: O(m+n) m = numero de mensajes en la carpeta y n= numero de subcarpetas.
     
-    #   Busqueda de mensajes por asutno en todo el árbol.
+    #   Busqueda de mensajes por asunto en todo el árbol.
     def busqueda_por_asunto(self, asunto):
         encontrados = [m for m in self.__mensajes if asunto.lower() in m.get_asunto().lower()]  #   Crea una lista con los mensajes que contienen el asunto.
         for subcarpeta in self.__subcarpetas:
@@ -112,3 +112,13 @@ class Carpeta(IListarMensajes):
             return []
         return encontrados   
         #   Complejidad: O(m+n) m = numero de mensajes en la carpeta y n= numero de subcarpetas. 
+    
+    #    Busqueda de carpeta por su nombre en todo el árbol.
+    def busqueda_recursiva_carpeta(self, nombre_carpeta):
+        if self.get_nombre().lower() == nombre_carpeta.lower():   #   se verifica si la carpeta buscada es la actual.
+            return self
+        for subcarpeta in self.__subcarpetas:
+            encontrada = subcarpeta.busqueda_recursiva_carpeta(nombre_carpeta)
+            if encontrada:
+                return encontrada     #   si se encuentra la carpeta en una subcareta se devuelve.
+        return None     #    si la carpeta no se encuentra se devuelve None    

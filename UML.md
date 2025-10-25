@@ -34,7 +34,8 @@ class Usuario {
     +enviar_mensaje(remitente, destinatario, asunto, cuerpo)
     +recibir_mensaje(mensaje)
     +listar_mensajes(carpeta)
-    +mover_mensaje(mensaje, carpeta1, carpeta2)
+    +mover_mensaje(mensaje, nombre_carpeta_destino)
+    +validar_password(password)
 }
 
 class Mensaje {
@@ -71,6 +72,7 @@ class Carpeta {
     +eliminar_subcarpeta(nombre)
     +busqueda_por_remitente(remitente)
     +busqueda_por_asunto(asunto)
+    +busqueda_recursiva_carpeta(nombre_carpeta)
 }
 
 Carpeta "1" o-- "0..*" Carpeta
