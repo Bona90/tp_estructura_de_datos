@@ -122,3 +122,4 @@ class Carpeta(IListarMensajes):
             if encontrada:
                 return encontrada     #   si se encuentra la carpeta en una subcareta se devuelve.
         return None     #    si la carpeta no se encuentra se devuelve None    
+        #    Complejidad: O(n) n = numero de subcarpetas.

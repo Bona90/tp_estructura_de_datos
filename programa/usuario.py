@@ -41,8 +41,23 @@ class Usuario(IEnviarMensaje, IRecibirMensajes):
         return mensaje
 
     def recibir_mensaje(self, mensaje):
+        nombre_carpeta_destino = self.__aplicar_filtro(mensaje)
+        if nombre_carpeta_destino:    #    si hay un filtro a aplicar.
+            carpeta_destino = None
+            for carpeta_raiz in self.__carpetas:
+                destino = carpeta_raiz.busqueda_recursiva_carpeta(nombre_carpeta_destino)    #   busqueda recursiva de la carpeta
+                if destino:    #    
+                    carpeta_destino = destino
+                    break
+                
+            if carpeta_destino:
+                carpeta_destino.agregar_mensaje(mensaje)
+                return     #   el mensaje ya se agrego a la carpeta mediante el filtro aplicado
+            else:
+                pass  #    si la carpeta no existe se agrega a la Bandeja de Entrada.
+                    
         for carpeta in self.__carpetas:
-            if carpeta.get_nombre().lower() == "bandeja de entrada":    #Ya sabemos que existe la carpeta Bandeja de entrada, y guardamos ahi el mensaje.
+            if carpeta.get_nombre().lower() == "bandeja de entrada":    #   no se aplica ningún filtro o no existe la carpeta de destino.
                 carpeta.agregar_mensaje(mensaje)
                 return
 
@@ -72,4 +87,20 @@ class Usuario(IEnviarMensaje, IRecibirMensajes):
         
     def validar_password(self, password):
         return self.__password == password    #    verificación de la contraseña sin exponer el atributo provado.
-       
+    
+    def __aplicar_filtro(self, mensaje):
+        from .filtros import filtros_automaticos
+        remitente = mensaje.get_remitente().lower()    #    se obtienen los datos del mensaje.
+        asunto = mensaje.get_asunto().lower()
+        
+        for nombre_carpeta, reglas in filtros_automaticos.items():
+            if "remitente" in reglas:     #    se utiliza la lista de remitentes.
+                for direccion in reglas["remitente"]:    #    verifica si la dirección coindice con el remitente.
+                    if direccion.lower() == remitente:    #    si la dirección coincide con el remitente devuelve la carpeta.
+                        return nombre_carpeta
+            
+            if "asunto" in reglas:    #    se utiliza la lista de asuntos.
+                for palabra_clave in reglas["asunto"]:    #    verifica si la palabra clave coincide con el asunto.
+                    if palabra_clave.lower() in asunto:
+                        return nombre_carpeta
+        return None    #    el bucle termina sin encontrar coincidencias.

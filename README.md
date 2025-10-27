@@ -50,6 +50,7 @@ El análisis de eficiencia se centra en las operaciones más comunes dentro de l
 **crear_subcarpeta()**: permite crear una subcarpeta siempre y cuando no este duplicada, su complejidad es O(n), n es el numero de subcarpetas en ese nivel. Se recorre la lista de subcarpetas para evitar duplicados.
 **busqueda_por_remitente()**: busqueda recursiva de mensajes según el remitente en todo el árbol, su complejidad es O(m+n), siendo m el total de mensajes y n el total de subcarpetas. El método debe revisar todos los nodos y todos los mensajes del árbol.
 **busqueda_por_asunto()**: busqueda recursiva de mensajes según el asunto en todo el árbol, su complejidad es O(m+n), siendo m el total de mensajes y n el total de subcarpetas. El método debe revisar todos los nodos y todos los mensajes del árbol.
+**busqueda_recursiva_carpeta()**: busqueda recursiva de una carpeta, su complejidad es O(n), siendo n la cantidad de carpetas y subcarpetas.
 
 **Manejo de casos límite y excepciones.**
 
