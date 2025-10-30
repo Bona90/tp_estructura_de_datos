@@ -36,8 +36,8 @@ class Usuario(IEnviarMensaje, IRecibirMensajes):
         return self.__carpetas
     
     # Métodos de Usuario
-    def enviar_mensaje(self, remitente, destinatario, asunto, cuerpo): 
-        mensaje = Mensaje(remitente, destinatario, asunto, cuerpo)      # Crea un objeto Mensaje y lo devuelve con el return
+    def enviar_mensaje(self, remitente, destinatario, asunto, cuerpo, prioridad): 
+        mensaje = Mensaje(remitente, destinatario, asunto, cuerpo, prioridad)      # Crea un objeto Mensaje y lo devuelve con el return
         return mensaje
 
     def recibir_mensaje(self, mensaje):
