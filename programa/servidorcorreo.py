@@ -40,10 +40,18 @@ class ServidorCorreo(IEnviarMensaje, IRecibirMensajes):
         else:    #    si la prioridad es 3 o mas, se envía de inmediato.
             self.recibir_mensaje(mensaje, destinatario)
 
-    def recibir_mensaje(self, mensaje, destinatario):    # Busca un usuario registrado y le entrega el mensaje.
-        usuario = self.buscar_usuario(destinatario)
+    def recibir_mensaje(self, mensaje, destinatario):    # Busca un usuario registrado y le entrega el mensaje (por mail o por objeto Usuario)
+        if isinstance(destinatario, str):
+            usuario = self.buscar_usuario(destinatario)
+        else:
+            usuario = destinatario
+          
+    
         if usuario:
-            usuario.recibir_mensaje(mensaje)    #    #El mensaje se entrega al usuario y activa la logica de filtrado.
+            usuario.recibir_mensaje(mensaje)
+            print("Mensaje entregado a ", usuario.get_email())    #    #El mensaje se entrega al usuario y activa la logica de filtrado.
+        else:
+            print("El destinanatrio ", destinatario, " no fue encotnrado")
 
     def procesar_cola_urgente(self):    #    procesa y entrega los mensajes de la cola de prioridad.
         mensajes_procesados = 0
@@ -58,3 +66,6 @@ class ServidorCorreo(IEnviarMensaje, IRecibirMensajes):
             if usuario.get_email() == email:
                 return usuario
         return None
+    
+    def get_usuario(self, email): #Devuelve el usuario con el email indicado, o None si no existe.
+            return self.buscar_usuario(email)
