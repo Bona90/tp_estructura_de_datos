@@ -66,28 +66,28 @@ Dentro de la clase Carpeta podemos encontrar:
 
 **"Algoritmos y Funcionalidades Avanzadas"**
 
-**"Filtros Automáticos"**
+**Filtros Automáticos**
 
 Se implementó una lógica de filtrasdo automático que se ejecuta cada vez que el usuario recibe un mensaje. Para esto se utiliza un diccionario que mapea el nombre de la carpeta de destino a listas de condiciones, remitente o asunto.
 Al activarse un filtro, el sistema utiliza la recursividad de busqueda de carpeta para localizar la carpeta de destino en cualquier nivel del árbol antes de mover el mensaje. Si la carpeta de destino no existe, el mensaje cae de forma predeterminada en la Bandeja de Entrada.
 
-**"Cola de Prioridad"**
+**Cola de Prioridad**
 
 Se implementó una clase llamada ColaPrioridad para gestionar mensajes urgentes, asegurando que se procesen antes que los mensajes "normales"(utilizando FIFO).
 Se utiliza una lista que almacena tuplas con la información prioridad y mensaje, para que luego de tomarse el dato de la prioridad se envíe el mensaje asociado.
 El método agregar utiliza la función sort para reordenar la lista según la prioridad, la prioridad más baja (1) será la más urgente y se ubicara siempre en el índice cero de la tupla. El método respeta el orden de llegada para prioridades iguales.
 Para integrar la cola de prioridad al Servidor de correo se anade el atributo __cola_urgentes. El método enviar_mensaje fue modificado para aceptar el parámetro prioridad = 3, que corresponde a un mensaje no urgente, los mensajes con prioridad menor serán enviados a la cola. El nuevo método procesar_cola_urgente() extrae los mensajes en orden de urgencia y los entrega a sus destinatarios.
 
-**"Grafo: Red de Servidores de Correo"**
+**Grafo: Red de Servidores de Correo**
 
 El grafo simulará la red por la cual viajan los mensajes, los nodos serán los servidores y las aristas las conexiones, para esto se utilizó un grafo no dirigido.
 
-**"Grafo de adyacencia"**: El grafo se almacena como un Diccionario de Listas de Adyacencia, donde cada clave es un objeto ServidorCorreo (el nodo) y su valor es una lista de servidores a los que está conectado (las aristas).
+**Grafo de adyacencia**: El grafo se almacena como un Diccionario de Listas de Adyacencia, donde cada clave es un objeto ServidorCorreo (el nodo) y su valor es una lista de servidores a los que está conectado (las aristas).
 Se implementaron dos algorítmos de búsqueda en grafos para enconetrar la ruta de trasnferencia de mensaje:
 
-**"BFS"**: búsqueda por anchura, utiliza una cola para encontrar la ruta más corta entre el servidor de origen y el de destino. Este es el método predeterminado, el valor por defecto, para que el sistema priorice encontrar la ruta más corta entre servidores.
+**BFS**: búsqueda por anchura, utiliza una cola para encontrar la ruta más corta entre el servidor de origen y el de destino. Este es el método predeterminado, el valor por defecto, para que el sistema priorice encontrar la ruta más corta entre servidores.
 
-**"DFS"**: búsqueda en profundidad, utiliza recursividad para encontrar cualquier ruta válida entre los servidores. Este método se plantea como una opción alternativa a la predeterminada.
+**DFS**: búsqueda en profundidad, utiliza recursividad para encontrar cualquier ruta válida entre los servidores. Este método se plantea como una opción alternativa a la predeterminada.
 El método enviar_mensaje utiliza el algoritmo seleccionado para obtener una lista ordenada de servidores, iterar sobre la lista de la ruta, simulando el paso del mensaje de servidor en servidor. Una vez que se encuentra en el último servidor, llama al método recibir_mensaje de ese servidor para que el mensaje sea finalmente entregado al usuario destinatario.
 
 **Gráfico UML de Clases**
