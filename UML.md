@@ -102,6 +102,15 @@ class ServidorCorreo {
     +buscar_usuario(email)
 }
 
+class RedServidores{
+    -__grafo
+    +agregar_servidor(servidor)
+    +conectar(servidor1, servidor2)
+    +bfs(origen, destino)
+    +dfs(origen, destino)
+    +enviar_mensaje(origen, destino, mensaje, metodo)
+}
+
     %% Relaciones de implementación.
 
 IEnviarMensaje <|.. Usuario
@@ -117,3 +126,4 @@ Usuario "1" o-- "*" Carpeta : tiene
 Carpeta "0" o-- "*" Mensaje : contiene
 ServidorCorreo "1" *-- "1" ColaPrioridad : utiliza
 ColaPrioridad "0" o-- "*" Mensaje : contiene
+RedServidores "1" o-- "*" ServidorCorreo : contiene nodo

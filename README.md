@@ -78,6 +78,18 @@ Se utiliza una lista que almacena tuplas con la información prioridad y mensaje
 El método agregar utiliza la función sort para reordenar la lista según la prioridad, la prioridad más baja (1) será la más urgente y se ubicara siempre en el índice cero de la tupla. El método respeta el orden de llegada para prioridades iguales.
 Para integrar la cola de prioridad al Servidor de correo se anade el atributo __cola_urgentes. El método enviar_mensaje fue modificado para aceptar el parámetro prioridad = 3, que corresponde a un mensaje no urgente, los mensajes con prioridad menor serán enviados a la cola. El nuevo método procesar_cola_urgente() extrae los mensajes en orden de urgencia y los entrega a sus destinatarios.
 
+**"Grafo: Red de Servidores de Correo"**
+
+El grafo simulará la red por la cual viajan los mensajes, los nodos serán los servidores y las aristas las conexiones, para esto se utilizó un grafo no dirigido.
+
+**"Grafo de adyacencia"**: El grafo se almacena como un Diccionario de Listas de Adyacencia, donde cada clave es un objeto ServidorCorreo (el nodo) y su valor es una lista de servidores a los que está conectado (las aristas).
+Se implementaron dos algorítmos de búsqueda en grafos para enconetrar la ruta de trasnferencia de mensaje:
+
+**"BFS"**: búsqueda por anchura, utiliza una cola para encontrar la ruta más corta entre el servidor de origen y el de destino. Este es el método predeterminado, el valor por defecto, para que el sistema priorice encontrar la ruta más corta entre servidores.
+
+**"DFS"**: búsqueda en profundidad, utiliza recursividad para encontrar cualquier ruta válida entre los servidores. Este método se plantea como una opción alternativa a la predeterminada.
+El método enviar_mensaje utiliza el algoritmo seleccionado para obtener una lista ordenada de servidores, iterar sobre la lista de la ruta, simulando el paso del mensaje de servidor en servidor. Una vez que se encuentra en el último servidor, llama al método recibir_mensaje de ese servidor para que el mensaje sea finalmente entregado al usuario destinatario.
+
 **Gráfico UML de Clases**
 
 ```mermaid
@@ -184,6 +196,15 @@ class ServidorCorreo {
     +buscar_usuario(email)
 }
 
+class RedServidores{
+    -__grafo
+    +agregar_servidor(servidor)
+    +conectar(servidor1, servidor2)
+    +bfs(origen, destino)
+    +dfs(origen, destino)
+    +enviar_mensaje(origen, destino, mensaje, metodo)
+}
+
     %% Relaciones de implementación.
 
 IEnviarMensaje <|.. Usuario
@@ -199,3 +220,4 @@ Usuario "1" o-- "*" Carpeta : tiene
 Carpeta "0" o-- "*" Mensaje : contiene
 ServidorCorreo "1" *-- "1" ColaPrioridad : utiliza
 ColaPrioridad "0" o-- "*" Mensaje : contiene
+RedServidores "1" o-- "*" ServidorCorreo : contiene nodo
