@@ -20,6 +20,15 @@ class IListarMensajes {
 
     %% Clases
 
+class ColaPrioridad {
+    -__cola
+    +esta_vacia()
+    +agregar(elemento, prioridad)
+    +extraer_urgente()
+    +ver_proximo()
+    +__len__()
+}
+
 class Usuario {
     -__nombre
     -__email
@@ -31,11 +40,12 @@ class Usuario {
     +set_email(nuevo_email)
     +set_password(nuevo_password)
     +get_carpetas()
-    +enviar_mensaje(remitente, destinatario, asunto, cuerpo)
+    +enviar_mensaje(remitente, destinatario, asunto, cuerpo, prioridad = 3)
     +recibir_mensaje(mensaje)
     +listar_mensajes(carpeta)
     +mover_mensaje(mensaje, nombre_carpeta_destino)
     +validar_password(password)
+    -__aplicar_filtro(mensaje)
 }
 
 class Mensaje {
@@ -80,14 +90,25 @@ Carpeta "1" o-- "0..*" Carpeta
 class ServidorCorreo {
     -__nombre
     -__usuarios
+    -__cola_urgentes
     +get_nombre()
     +set_nombre(nuevo_nombre)
     +get_usuarios()
     +registrar_usuario(usuario)
     +login(email, password)
-    +enviar_mensaje(remitente, destinatario, asunto, cuerpo)
+    +enviar_mensaje(remitente, destinatario, asunto, cuerpo, prioridad = 3)
     +recibir_mensaje(mensaje, destinatario)
+    +procesar_cola_urgente()
     +buscar_usuario(email)
+}
+
+class RedServidores{
+    -__grafo
+    +agregar_servidor(servidor)
+    +conectar(servidor1, servidor2)
+    +bfs(origen, destino)
+    +dfs(origen, destino)
+    +enviar_mensaje(origen, destino, mensaje, metodo)
 }
 
     %% Relaciones de implementación.
@@ -103,3 +124,6 @@ IListarMensajes <|.. Carpeta
 ServidorCorreo "1" o-- "*" Usuario : gestiona
 Usuario "1" o-- "*" Carpeta : tiene
 Carpeta "0" o-- "*" Mensaje : contiene
+ServidorCorreo "1" *-- "1" ColaPrioridad : utiliza
+ColaPrioridad "0" o-- "*" Mensaje : contiene
+RedServidores "1" o-- "*" ServidorCorreo : contiene nodo
