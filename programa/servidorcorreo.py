@@ -51,7 +51,7 @@ class ServidorCorreo(IEnviarMensaje, IRecibirMensajes):
             mensaje = self.__cola_urgentes.extraer_urgente()
             self.recibir_mensaje(mensaje, mensaje.get_destinatario())    #    entrega el mensaje al destinatario.
             mensajes_procesados += 1
-        return "Mensajes urgenten entregados."
+        return "Mensajes urgentes entregados."
         
     def buscar_usuario(self, email):    #Busca un usuario por su email dentro de la lista de registrados
         for usuario in self.__usuarios:

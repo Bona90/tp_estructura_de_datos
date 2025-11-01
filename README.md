@@ -7,6 +7,8 @@
 
 Este proyecto se desarrolla en el marco de trabajo de la materia Estructura de Datos, correspondiente a la carrera Tecnicatura Universitaria en Programación de la Universidad Nacional Almirante Brown.
 
+**"Modelado de Clases y Encapsulamiento"**
+
 El objetivo principal de este proyecto es desarrollar un sistema de mensajería o correo electrónico básico, implementenado, en esta primer instancia, clases, encapsulamiento, interfaces.
 
 Las clases principales del proyecto son:  
@@ -35,6 +37,8 @@ Se espera que el programa permita:
   Mover mensajes entre carpetas.  
   Listar los mensajes de una carpta.  
 
+**"Estructuras de Datos y Recursividad"**
+
 **Árbol General y Lógica Recursiva**
 
 La clase Carpeta fue implementada como un árbol general, en el cual cada nodo puede tener una cantidad infinita de hijos, en este caso una estructura jerárquica que puede tener subcarpetas ilimitadas.
@@ -60,6 +64,20 @@ Dentro de la clase Carpeta podemos encontrar:
 **ValueError**: el programa arroja errores de este tipo al modificar el nombre de la carpeta, si el nombre no es una cadena de caracteres; al querer eliminar o mover un mensaje si el mensaje no existe en la carpeta de la cual se lo quiere eliminar o mover, ya que la operación no se puede realizar; al crear o agregar una subcarpeta si la carpeta ya existe, ya que no se permite dos nodos hermanos con la misma identificación.
 **Operaciones recursivas**: luego de la busqueda recursiva, por asunto o remitente, de todos los nodos, si no se encuentra el mensaje buscado se devuelve una lista vacía, con el fin de evitar errores de ejecución.
 
+**"Algoritmos y Funcionalidades Avanzadas"**
+
+**"Filtros Automáticos"**
+
+Se implementó una lógica de filtrasdo automático que se ejecuta cada vez que el usuario recibe un mensaje. Para esto se utiliza un diccionario que mapea el nombre de la carpeta de destino a listas de condiciones, remitente o asunto.
+Al activarse un filtro, el sistema utiliza la recursividad de busqueda de carpeta para localizar la carpeta de destino en cualquier nivel del árbol antes de mover el mensaje. Si la carpeta de destino no existe, el mensaje cae de forma predeterminada en la Bandeja de Entrada.
+
+**"Cola de Prioridad"**
+
+Se implementó una clase llamada ColaPrioridad para gestionar mensajes urgentes, asegurando que se procesen antes que los mensajes "normales"(utilizando FIFO).
+Se utiliza una lista que almacena tuplas con la información prioridad y mensaje, para que luego de tomarse el dato de la prioridad se envíe el mensaje asociado.
+El método agregar utiliza la función sort para reordenar la lista según la prioridad, la prioridad más baja (1) será la más urgente y se ubicara siempre en el índice cero de la tupla. El método respeta el orden de llegada para prioridades iguales.
+Para integrar la cola de prioridad al Servidor de correo se anade el atributo __cola_urgentes. El método enviar_mensaje fue modificado para aceptar el parámetro prioridad = 3, que corresponde a un mensaje no urgente, los mensajes con prioridad menor serán enviados a la cola. El nuevo método procesar_cola_urgente() extrae los mensajes en orden de urgencia y los entrega a sus destinatarios.
+
 **Gráfico UML de Clases**
 
 ```mermaid
@@ -84,6 +102,15 @@ class IListarMensajes {
 
     %% Clases
 
+class ColaPrioridad {
+    -__cola
+    +esta_vacia()
+    +agregar(elemento, prioridad)
+    +extraer_urgente()
+    +ver_proximo()
+    +__len__()
+}
+
 class Usuario {
     -__nombre
     -__email
@@ -95,11 +122,12 @@ class Usuario {
     +set_email(nuevo_email)
     +set_password(nuevo_password)
     +get_carpetas()
-    +enviar_mensaje(remitente, destinatario, asunto, cuerpo)
+    +enviar_mensaje(remitente, destinatario, asunto, cuerpo, prioridad = 3)
     +recibir_mensaje(mensaje)
     +listar_mensajes(carpeta)
     +mover_mensaje(mensaje, nombre_carpeta_destino)
     +validar_password(password)
+    -__aplicar_filtro(mensaje)
 }
 
 class Mensaje {
@@ -144,13 +172,15 @@ Carpeta "1" o-- "0..*" Carpeta
 class ServidorCorreo {
     -__nombre
     -__usuarios
+    -__cola_urgentes
     +get_nombre()
     +set_nombre(nuevo_nombre)
     +get_usuarios()
     +registrar_usuario(usuario)
     +login(email, password)
-    +enviar_mensaje(remitente, destinatario, asunto, cuerpo)
+    +enviar_mensaje(remitente, destinatario, asunto, cuerpo, prioridad = 3)
     +recibir_mensaje(mensaje, destinatario)
+    +procesar_cola_urgente()
     +buscar_usuario(email)
 }
 
@@ -167,3 +197,5 @@ IListarMensajes <|.. Carpeta
 ServidorCorreo "1" o-- "*" Usuario : gestiona
 Usuario "1" o-- "*" Carpeta : tiene
 Carpeta "0" o-- "*" Mensaje : contiene
+ServidorCorreo "1" *-- "1" ColaPrioridad : utiliza
+ColaPrioridad "0" o-- "*" Mensaje : contiene
