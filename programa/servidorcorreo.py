@@ -51,7 +51,7 @@ class ServidorCorreo(IEnviarMensaje, IRecibirMensajes):
             usuario.recibir_mensaje(mensaje)
             print("Mensaje entregado a ", usuario.get_email())    #    #El mensaje se entrega al usuario y activa la logica de filtrado.
         else:
-            print("El destinanatrio ", destinatario, " no fue encotnrado")
+            print("El destinatario ", destinatario, " no fue encotnrado")
 
     def procesar_cola_urgente(self):    #    procesa y entrega los mensajes de la cola de prioridad.
         mensajes_procesados = 0
