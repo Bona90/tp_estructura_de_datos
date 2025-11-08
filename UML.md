@@ -20,13 +20,17 @@ class IListarMensajes {
 
     %% Clases
 
+class Nodo {
+    +datos
+    -siguiente
+}
+
 class ColaPrioridad {
-    -__cola
+    -head
     +esta_vacia()
     +agregar(elemento, prioridad)
     +extraer_urgente()
     +ver_proximo()
-    +__len__()
 }
 
 class Usuario {
@@ -127,3 +131,6 @@ Carpeta "0" o-- "*" Mensaje : contiene
 ServidorCorreo "1" *-- "1" ColaPrioridad : utiliza
 ColaPrioridad "0" o-- "*" Mensaje : contiene
 RedServidores "1" o-- "*" ServidorCorreo : contiene nodo
+ColaPrioridad "1" *-- "1" Nodo : head
+Nodo "1" o-- "0..1" Nodo : siguiente
+

@@ -73,9 +73,11 @@ Al activarse un filtro, el sistema utiliza la recursividad de busqueda de carpet
 
 **Cola de Prioridad**
 
-Se implementó una clase llamada ColaPrioridad para gestionar mensajes urgentes, asegurando que se procesen antes que los mensajes "normales"(utilizando FIFO).
-Se utiliza una lista que almacena tuplas con la información prioridad y mensaje, para que luego de tomarse el dato de la prioridad se envíe el mensaje asociado.
-El método agregar utiliza la función sort para reordenar la lista según la prioridad, la prioridad más baja (1) será la más urgente y se ubicara siempre en el índice cero de la tupla. El método respeta el orden de llegada para prioridades iguales.
+Se implementó una clase llamada ColaPrioridad para gestionar mensajes urgentes, asegurando que se procesen antes que los mensajes "normales"(utilizando FIFO como criterio de "desempate").
+Se utiliza una lista enlazada (compuesta por nodos) que almacena tuplas con la información prioridad y mensaje.
+La lista enlazada fue elegida para optimizar la extracción:
+El método extraer_urgente() tiene una complejidad O(1), ya que el elemento de mayor prioridad siempre esta en el puntero head.
+El método agregar() tiene una complejidad O(n), ya que en el peor de los casos debe recorrer la lista enlazada para insertar el nuevo nodo en la posición correcta según la prioridad.
 Para integrar la cola de prioridad al Servidor de correo se anade el atributo __cola_urgentes. El método enviar_mensaje fue modificado para aceptar el parámetro prioridad = 3, que corresponde a un mensaje no urgente, los mensajes con prioridad menor serán enviados a la cola. El nuevo método procesar_cola_urgente() extrae los mensajes en orden de urgencia y los entrega a sus destinatarios.
 
 **Grafo: Red de Servidores de Correo**
@@ -114,13 +116,17 @@ class IListarMensajes {
 
     %% Clases
 
+class Nodo {
+    +datos
+    -siguiente
+}
+
 class ColaPrioridad {
-    -__cola
+    -head
     +esta_vacia()
     +agregar(elemento, prioridad)
     +extraer_urgente()
     +ver_proximo()
-    +__len__()
 }
 
 class Usuario {
@@ -221,3 +227,5 @@ Carpeta "0" o-- "*" Mensaje : contiene
 ServidorCorreo "1" *-- "1" ColaPrioridad : utiliza
 ColaPrioridad "0" o-- "*" Mensaje : contiene
 RedServidores "1" o-- "*" ServidorCorreo : contiene nodo
+ColaPrioridad "1" *-- "1" Nodo : head
+Nodo "1" o-- "0..1" Nodo : siguiente
