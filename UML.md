@@ -34,8 +34,12 @@ class Usuario {
     +enviar_mensaje(remitente, destinatario, asunto, cuerpo)
     +recibir_mensaje(mensaje)
     +listar_mensajes(carpeta)
+<<<<<<< HEAD
+    +mover_mensaje(mensaje, carpeta1, carpeta2)
+=======
     +mover_mensaje(mensaje, nombre_carpeta_destino)
     +validar_password(password)
+>>>>>>> a833f84a31f7e9d30c832006eca5e9bd63c535cf
 }
 
 class Mensaje {
@@ -55,6 +59,16 @@ class Mensaje {
 class Carpeta {
     -__nombre
     -__mensajes
+<<<<<<< HEAD
+    +get_nombre()
+    +set_nombre(nombre)
+    +get_mensajes()
+    +agregar_mensaje(mensaje)
+    +eliminar_mensaje(mensaje)
+    +listar_mensajes()
+}
+
+=======
     -__subcarpetas : list<Carpeta>
     -__padre : Carpeta
     +get_nombre()
@@ -77,6 +91,7 @@ class Carpeta {
 
 Carpeta "1" o-- "0..*" Carpeta
 
+>>>>>>> a833f84a31f7e9d30c832006eca5e9bd63c535cf
 class ServidorCorreo {
     -__nombre
     -__usuarios
