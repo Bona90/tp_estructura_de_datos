@@ -1,31 +1,42 @@
-def obtener_prioridad(elemento):
-    return elemento[0]    #    funcion auxiliar para obtener la prioridad del elemento.
+class Nodo:
+    def __init__(self, elemento, prioridad):
+        self.datos = (prioridad, elemento)    #    se define la tupla de los mensajes.
+        self.siguiente = None    #    puntero al siguiente nodo.
 
 class ColaPrioridad:
     def __init__(self):
-        self.__cola = []    #   la cola almacena tuplas que inidican la prioridad y el elemento.
+        self.head = None    #    la cabeza es el primer nodo y será siempre el de mayor prioridad.
     
     def esta_vacia(self):
-        return len(self.__cola) == 0    #    verifica si la cola no tiene elementos, devuelve True
-    
+        return self.head is None    #    indica si no hay mensajes en la cola de prioridad. 
+       
     def agregar (self, elemento, prioridad):
-        if not isinstance(prioridad, int) or prioridad < 1:
-            raise ValueError("La prioridad debe ser un numero entero positivo.")
-        self.__cola.append(prioridad, elemento)    #   agrega un elemento y reordena la lista según la prioridad, los elementos con prioridad  1 van primero.
-        self.__cola.sort(key = obtener_prioridad)    #    mantiene la cola ordenada según la prioridad y con el método FIFO para los elementos de igual prioridad.
+        nuevo_nodo = Nodo(elemento, prioridad)    #    agrega un elemento insertandolo en la posición correcta.
+       #    si la cola está vacía o el elemento a insertar es de mayor prioridad se inserta en la cabeza.
+        if self.esta_vacia() or prioridad < self.head.datos[0]:
+           nuevo_nodo.siguiente = self.head
+           self.head = nuevo_nodo
+           return
+       #    se busca la posición de inserción.
+        actual = self.head
+        while actual.siguiente is not None and actual.siguiente.datos[0] <= prioridad:
+           actual = actual.siguiente   #    recorre la lista hasta enconetrar un nodo de prioridad mayor o igual o hasta llegar al final.
+        #    insertar el nuevo nodo entre el actual y el siguiente.
+        nuevo_nodo.siguiente = actual.siguiente
+        actual.siguiente = nuevo_nodo
         
     def extraer_urgente(self):    #    devuelve y elimina el mensaje con la mayor prioridad.
         if self.esta_vacia():
             raise IndexError("No se pueden extraer elementos de una cola vacía.")
-        return self.__cola.pop(0)[1]    #    pop(0) devuelve y elimina el primer elemento de la cola, [1] devuelve el elemento de la tupla correspondiente al mensaje.
+        #    elemento más urgente en la cabeza.
+        elemento_urgente = self.head.datos[1]
+        self.head = self.head.siguiente
+        return elemento_urgente
     #    complejidad: O(n), n cantidad de elementos de la cola.
     
     def ver_proximo(self):    #    mmira el elemento más urgente sin eliminarlo.
         if self.esta_vacia():  
             return None
-        return self.__cola[0][1]    #    accede al primer elemento de la cola [0] y devuelve el mensaje de la tupla [1].
-    
-    def __len__(self):
-        return len(self.__cola)
+        return self.head.datos[1]    
     
         
