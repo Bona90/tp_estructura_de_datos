@@ -43,16 +43,9 @@ class Usuario {
     +enviar_mensaje(remitente, destinatario, asunto, cuerpo, prioridad = 3)
     +recibir_mensaje(mensaje)
     +listar_mensajes(carpeta)
-<<<<<<< HEAD
-    +mover_mensaje(mensaje, carpeta1, carpeta2)
-=======
     +mover_mensaje(mensaje, nombre_carpeta_destino)
     +validar_password(password)
-<<<<<<< HEAD
->>>>>>> a833f84a31f7e9d30c832006eca5e9bd63c535cf
-=======
     -__aplicar_filtro(mensaje)
->>>>>>> afbb70567e7f7def4d395422b06c13adb8221703
 }
 
 class Mensaje {
