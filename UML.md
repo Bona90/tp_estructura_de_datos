@@ -20,13 +20,17 @@ class IListarMensajes {
 
     %% Clases
 
+class Nodo {
+    +datos
+    -siguiente
+}
+
 class ColaPrioridad {
-    -__cola
+    -head
     +esta_vacia()
     +agregar(elemento, prioridad)
     +extraer_urgente()
     +ver_proximo()
-    +__len__()
 }
 
 class Usuario {
@@ -65,16 +69,6 @@ class Mensaje {
 class Carpeta {
     -__nombre
     -__mensajes
-<<<<<<< HEAD
-    +get_nombre()
-    +set_nombre(nombre)
-    +get_mensajes()
-    +agregar_mensaje(mensaje)
-    +eliminar_mensaje(mensaje)
-    +listar_mensajes()
-}
-
-=======
     -__subcarpetas : list<Carpeta>
     -__padre : Carpeta
     +get_nombre()
@@ -97,7 +91,6 @@ class Carpeta {
 
 Carpeta "1" o-- "0..*" Carpeta
 
->>>>>>> a833f84a31f7e9d30c832006eca5e9bd63c535cf
 class ServidorCorreo {
     -__nombre
     -__usuarios
@@ -138,3 +131,7 @@ Carpeta "0" o-- "*" Mensaje : contiene
 ServidorCorreo "1" *-- "1" ColaPrioridad : utiliza
 ColaPrioridad "0" o-- "*" Mensaje : contiene
 RedServidores "1" o-- "*" ServidorCorreo : contiene nodo
+ColaPrioridad "1" *-- "1" Nodo : head
+Nodo "1" o-- "0..1" Nodo : siguiente
+
+
