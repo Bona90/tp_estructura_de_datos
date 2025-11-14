@@ -1,6 +1,6 @@
 #  Proyecto Sistema de Correo
 
-  INTEGRANTES DEL GRUPO:  
+  INTEGRANTES DEL GRUPO 4:  
   Bonacorsi, Gonzalo  
   Fermini, Mara  
   Santa María, Alan
@@ -229,3 +229,20 @@ ColaPrioridad "0" o-- "*" Mensaje : contiene
 RedServidores "1" o-- "*" ServidorCorreo : contiene nodo
 ColaPrioridad "1" *-- "1" Nodo : head
 Nodo "1" o-- "0..1" Nodo : siguiente
+
+
+** "Interfaz de Línea de Comandos (CLI)" **
+
+En esta última etapa todas las funcionalidades del sistema fueron integradas en una Interfaz de Línea de Comandos interactiva. Esta interfaz actúa como el módulo de control que permite al usuario interactuar con el sistema de clases.
+La CLI demuestra el funcionamiento dinámico del sistema de correo, validando el Grafo de Servidores, la Cola de Prioridad, y la lógica de Login en un entorno ejecutable.
+
+** Funcionalidades claves: **
+
+# Administración del grafo: permite agregar nuevos servidores y visualizar las conexiones de la red.
+# Seguridad: implementa el Login para el envío y la visualización de mensajes, utilizando el método validar_password para asegurar el encapsulamiento.
+# Envío de mensajes: permite especificar un usuario en la red. El sistema utiliza automáticamente el algorítmo BFS para encontrar la ruta más corta entre los servidores de origen y destino.
+# Visualización: permite al usuario ver los mensajes recibidos en su bandeja de entrada.
+
+Para iniciar la interfaz de comandos y la simulación completa, ejecute el script de la aplicación desde la raíz del proyecto:
+
+python interfaz_comandos.py
