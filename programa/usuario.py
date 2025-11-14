@@ -8,7 +8,7 @@ class Usuario(IEnviarMensaje, IRecibirMensajes):
         self.set_nombre(nombre)  #  se aplica doble protección de los atributos.
         self.set_email(email)
         self.set_password(password)
-        self.__carpetas = [Carpeta("Bandeja de entrada")] #Cada usuario arranca con su carpeta "Bandeja de entrada" para que los mesajes se guarden ahi y no se pierdan.
+        self.__carpetas = [Carpeta("Bandeja de entrada"), Carpeta("Enviados")] #Cada usuario arranca con su carpeta "Bandeja de entrada" y "Enviados" para que los mesajes se guarden ahi y no se pierdan.
 
     # Getters y Setters
     def get_nombre(self):
@@ -28,8 +28,8 @@ class Usuario(IEnviarMensaje, IRecibirMensajes):
         self.__email = nuevo_email
 
     def set_password(self, nuevo_password):
-        if len(nuevo_password) < 8:  #  se verifica que la contraseña tenga una longitud mínima de 8 caracteres.
-            raise ValueError("La contraseña debe tener como mínimo 8 carácteres.")
+        if len(nuevo_password) < 6:  #  se verifica que la contraseña tenga una longitud mínima de 6 caracteres.
+            raise ValueError("La contraseña debe tener como mínimo 6 carácteres.")
         self.__password = nuevo_password
     
     def get_carpetas(self):
@@ -104,3 +104,17 @@ class Usuario(IEnviarMensaje, IRecibirMensajes):
                     if palabra_clave.lower() in asunto:
                         return nombre_carpeta
         return None    #    el bucle termina sin encontrar coincidencias.
+    def get_bandeja_entrada(self):
+    
+        for carpeta in self.__carpetas:
+            if carpeta.get_nombre().lower() == "bandeja de entrada":
+                return carpeta.get_mensajes()
+        return []
+
+    def get_enviados(self):
+        for carpeta in self.__carpetas:
+            if carpeta.get_nombre().lower() == "enviados":
+                return carpeta.get_mensajes()
+        return []
+
+        
