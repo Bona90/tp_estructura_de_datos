@@ -20,13 +20,17 @@ class IListarMensajes {
 
     %% Clases
 
+class Nodo {
+    +datos
+    -siguiente
+}
+
 class ColaPrioridad {
-    -__cola
+    -head
     +esta_vacia()
     +agregar(elemento, prioridad)
     +extraer_urgente()
     +ver_proximo()
-    +__len__()
 }
 
 class Usuario {
@@ -43,16 +47,9 @@ class Usuario {
     +enviar_mensaje(remitente, destinatario, asunto, cuerpo, prioridad = 3)
     +recibir_mensaje(mensaje)
     +listar_mensajes(carpeta)
-<<<<<<< HEAD
-    +mover_mensaje(mensaje, carpeta1, carpeta2)
-=======
     +mover_mensaje(mensaje, nombre_carpeta_destino)
     +validar_password(password)
-<<<<<<< HEAD
->>>>>>> a833f84a31f7e9d30c832006eca5e9bd63c535cf
-=======
     -__aplicar_filtro(mensaje)
->>>>>>> afbb70567e7f7def4d395422b06c13adb8221703
 }
 
 class Mensaje {
@@ -72,16 +69,6 @@ class Mensaje {
 class Carpeta {
     -__nombre
     -__mensajes
-<<<<<<< HEAD
-    +get_nombre()
-    +set_nombre(nombre)
-    +get_mensajes()
-    +agregar_mensaje(mensaje)
-    +eliminar_mensaje(mensaje)
-    +listar_mensajes()
-}
-
-=======
     -__subcarpetas : list<Carpeta>
     -__padre : Carpeta
     +get_nombre()
@@ -104,7 +91,6 @@ class Carpeta {
 
 Carpeta "1" o-- "0..*" Carpeta
 
->>>>>>> a833f84a31f7e9d30c832006eca5e9bd63c535cf
 class ServidorCorreo {
     -__nombre
     -__usuarios
@@ -145,3 +131,7 @@ Carpeta "0" o-- "*" Mensaje : contiene
 ServidorCorreo "1" *-- "1" ColaPrioridad : utiliza
 ColaPrioridad "0" o-- "*" Mensaje : contiene
 RedServidores "1" o-- "*" ServidorCorreo : contiene nodo
+ColaPrioridad "1" *-- "1" Nodo : head
+Nodo "1" o-- "0..1" Nodo : siguiente
+
+
