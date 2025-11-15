@@ -99,10 +99,10 @@ La CLI demuestra el funcionamiento dinámico del sistema de correo, validando el
 
 ** Funcionalidades claves: **
 
-# Administración del grafo: permite agregar nuevos servidores y visualizar las conexiones de la red.
-# Seguridad: implementa el Login para el envío y la visualización de mensajes, utilizando el método validar_password para asegurar el encapsulamiento.
-# Envío de mensajes: permite especificar un usuario en la red. El sistema utiliza automáticamente el algorítmo BFS para encontrar la ruta más corta entre los servidores de origen y destino.
-# Visualización: permite al usuario ver los mensajes recibidos en su bandeja de entrada.
+Administración del grafo: permite agregar nuevos servidores y visualizar las conexiones de la red.
+Seguridad: implementa el Login para el envío y la visualización de mensajes, utilizando el método validar_password para asegurar el encapsulamiento.
+Envío de mensajes: permite especificar un usuario en la red. El sistema utiliza automáticamente el algorítmo BFS para encontrar la ruta más corta entre los servidores de origen y destino.
+Visualización: permite al usuario ver los mensajes recibidos en su bandeja de entrada.
 
 Para iniciar la interfaz de comandos y la simulación completa, ejecute el script de la aplicación desde la raíz del proyecto:
 
