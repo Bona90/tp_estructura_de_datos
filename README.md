@@ -92,6 +92,23 @@ Se implementaron dos algorítmos de búsqueda en grafos para enconetrar la ruta 
 **DFS**: búsqueda en profundidad, utiliza recursividad para encontrar cualquier ruta válida entre los servidores. Este método se plantea como una opción alternativa a la predeterminada.
 El método enviar_mensaje utiliza el algoritmo seleccionado para obtener una lista ordenada de servidores, iterar sobre la lista de la ruta, simulando el paso del mensaje de servidor en servidor. Una vez que se encuentra en el último servidor, llama al método recibir_mensaje de ese servidor para que el mensaje sea finalmente entregado al usuario destinatario.
 
+** "Interfaz de Línea de Comandos (CLI)" **
+
+En esta última etapa todas las funcionalidades del sistema fueron integradas en una Interfaz de Línea de Comandos interactiva. Esta interfaz actúa como el módulo de control que permite al usuario interactuar con el sistema de clases.
+La CLI demuestra el funcionamiento dinámico del sistema de correo, validando el Grafo de Servidores, la Cola de Prioridad, y la lógica de Login en un entorno ejecutable.
+
+** Funcionalidades claves: **
+
+# Administración del grafo: permite agregar nuevos servidores y visualizar las conexiones de la red.
+# Seguridad: implementa el Login para el envío y la visualización de mensajes, utilizando el método validar_password para asegurar el encapsulamiento.
+# Envío de mensajes: permite especificar un usuario en la red. El sistema utiliza automáticamente el algorítmo BFS para encontrar la ruta más corta entre los servidores de origen y destino.
+# Visualización: permite al usuario ver los mensajes recibidos en su bandeja de entrada.
+
+Para iniciar la interfaz de comandos y la simulación completa, ejecute el script de la aplicación desde la raíz del proyecto:
+
+python interfaz_comandos.py
+
+
 **Gráfico UML de Clases**
 
 ```mermaid
@@ -231,18 +248,3 @@ ColaPrioridad "1" *-- "1" Nodo : head
 Nodo "1" o-- "0..1" Nodo : siguiente
 
 
-** "Interfaz de Línea de Comandos (CLI)" **
-
-En esta última etapa todas las funcionalidades del sistema fueron integradas en una Interfaz de Línea de Comandos interactiva. Esta interfaz actúa como el módulo de control que permite al usuario interactuar con el sistema de clases.
-La CLI demuestra el funcionamiento dinámico del sistema de correo, validando el Grafo de Servidores, la Cola de Prioridad, y la lógica de Login en un entorno ejecutable.
-
-** Funcionalidades claves: **
-
-# Administración del grafo: permite agregar nuevos servidores y visualizar las conexiones de la red.
-# Seguridad: implementa el Login para el envío y la visualización de mensajes, utilizando el método validar_password para asegurar el encapsulamiento.
-# Envío de mensajes: permite especificar un usuario en la red. El sistema utiliza automáticamente el algorítmo BFS para encontrar la ruta más corta entre los servidores de origen y destino.
-# Visualización: permite al usuario ver los mensajes recibidos en su bandeja de entrada.
-
-Para iniciar la interfaz de comandos y la simulación completa, ejecute el script de la aplicación desde la raíz del proyecto:
-
-python interfaz_comandos.py
